@@ -1,4 +1,76 @@
-<form method="POST" enctype="multipart/form-data">
-  <input type="file" name="file">
-  <button type="submit">Analyze</button>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CN AWS FRR Platform</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: monospace;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .ascii {
+            white-space: pre;
+            font-size: 14px;
+            line-height: 14px;
+            margin-bottom: 40px;
+        }
+
+        button {
+            background-color: black;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+        }
+
+        input[type="file"] {
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 30px;
+            font-size: 20px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+    </style>
+
+    <script>
+        function showLoading() {
+            document.getElementById("loadingText").style.display = "block";
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="ascii">
+        ☁
+     ☁     ☁
+   ☁   CN AWS CLOUD PLATFORM   ☁
+     ☁     ☁
+        ☁
+</div>
+
+<h2>CN-AWS-FRR Risk Engine</h2>
+
+<form method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+    <input type="file" name="file" required><br>
+    <button type="submit">Analyze</button>
 </form>
+
+<div id="loadingText" class="loading">
+    CN ANALYZING...
+</div>
+
+</body>
+</html>
