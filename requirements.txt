@@ -1,3 +1,10 @@
 networkx
 matplotlib
 reportlab
+flask
+pandas
+openpyxl
+networkx
+matplotlib
+reportlab
+boto3
