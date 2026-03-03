@@ -9,10 +9,6 @@ SENSITIVE_PORTS = [
     "9200", "6443"
 ]
 
-# -------------------------
-# Utilities
-# -------------------------
-
 def safe(v):
     if pd.isna(v):
         return ""
@@ -26,25 +22,7 @@ def is_public(cidr):
 
 def normalize_columns(df):
     df.columns = df.columns.str.strip()
-
-    rename_map = {
-        "Type": "Rule Type",
-        "Direction": "Rule Type",
-        "rule_type": "Rule Type",
-        "Port": "Port Range",
-        "From Port": "Port Range",
-        "Source": "Source/Destination",
-        "Destination": "Source/Destination",
-        "SecurityGroup": "Security Group",
-        "SecurityGroupId": "Security Group"
-    }
-
-    df.rename(columns=rename_map, inplace=True)
     return df
-
-# -------------------------
-# Risk Scoring
-# -------------------------
 
 def calculate_score(rule_type, port, source):
     score = 0
@@ -71,10 +49,6 @@ def classify(score):
         return "Medium"
     return "Low"
 
-# -------------------------
-# Graph Builder
-# -------------------------
-
 def build_graph(df):
     graph = defaultdict(list)
 
@@ -88,13 +62,8 @@ def build_graph(df):
 
     return graph
 
-# -------------------------
-# Attack Chain Simulation
-# -------------------------
-
 def find_attack_chains(graph):
     attack_chains = []
-
     entry_points = ["0.0.0.0/0"]
 
     for entry in entry_points:
@@ -108,7 +77,6 @@ def find_attack_chains(graph):
                 continue
 
             for neighbor in graph[current]:
-
                 new_path = path + [neighbor]
 
                 if len(new_path) > 5:
@@ -120,10 +88,6 @@ def find_attack_chains(graph):
                     queue.append(new_path)
 
     return attack_chains
-
-# -------------------------
-# Main Analysis Function
-# -------------------------
 
 def analyze(df):
 
@@ -168,10 +132,9 @@ def analyze(df):
         })
 
     analyzed_df = pd.DataFrame(results)
-    attack_chains = find_attack_chains(graph)
 
     attack_chain_df = pd.DataFrame({
-        "Attack Chain": attack_chains
+        "Attack Chain": find_attack_chains(graph)
     })
 
     return analyzed_df, attack_chain_df
