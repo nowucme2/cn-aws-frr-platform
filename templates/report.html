@@ -1,3 +1,81 @@
-<h2>Analysis Complete</h2>
-<img src="{{ graph }}">
-<p>Executive PDF Generated: {{ pdf }}</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CN Analysis Report</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 30px;
+            text-align: center;
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            margin-top: 20px;
+            border: 1px solid #00ff00;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #00ff00;
+            animation: typing 3s steps(30, end), blink 1s infinite;
+            width: 0;
+            margin: auto;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 350px }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 class="typing">CN ANALYSIS COMPLETE</h1>
+
+<div class="section">
+    <h3>Risk Summary</h3>
+    <p>Critical: {{ severity.get('Critical',0) }}</p>
+    <p>High: {{ severity.get('High',0) }}</p>
+    <p>Medium: {{ severity.get('Medium',0) }}</p>
+    <p>Low: {{ severity.get('Low',0) }}</p>
+</div>
+
+<div class="section">
+    <h3>Download Reports</h3>
+    <a href="/download/{{ excel }}">[ Download Excel Report ]</a><br><br>
+    <a href="/download/{{ pdf }}">[ Download Executive PDF ]</a>
+</div>
+
+<div class="section">
+    <h3>Attack Graph Visualization</h3>
+    <img src="/download/{{ graph }}" width="900">
+</div>
+
+<div class="section">
+    <br>
+    <a href="/">[ Run Another Analysis ]</a>
+</div>
+
+</body>
+</html>
